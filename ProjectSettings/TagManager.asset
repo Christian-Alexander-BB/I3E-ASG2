@@ -9,6 +9,7 @@ TagManager:
   - ShowOnClose
   - ShowOnVinyl
   - ShowOnVinylPlayer
+  - ShowAssemblePrompt
   layers:
   - Default
   - TransparentFX

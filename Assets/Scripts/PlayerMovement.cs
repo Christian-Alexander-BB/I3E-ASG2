@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject[] uiOnClose;
     public GameObject[] vinylPrompt;
     public GameObject[] vinylPlayerPrompt;
+    public GameObject[] vinylAssemble;
 
     public CharacterController controller;
 
@@ -19,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 3f;
     public float interactionDistance = 10f;
     public float collectInteractionDistance = 2f;
+
+    public bool vinylFlag = false;
+    public bool vinylPlayerFlag = false;
 
     Vector3 velocity;
     bool isGrounded;
@@ -36,9 +41,11 @@ public class PlayerMovement : MonoBehaviour
         uiOnClose = GameObject.FindGameObjectsWithTag("ShowOnClose");
         vinylPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinyl");
         vinylPlayerPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinylPlayer");
+        vinylAssemble = GameObject.FindGameObjectsWithTag("ShowAssemblePrompt");
         hideClose();
         hideVinylPrompt();
         hideVinylPlayerPrompt();
+        hideVinylAssemble();
         
     }
 
@@ -120,13 +127,18 @@ public class PlayerMovement : MonoBehaviour
 
             if (result.transform.name == "Vinyl")
             {
-                Debug.Log(result.transform.name);
                 showVinylPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    vinylFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPrompt();
                 }
+            }
+
+            else if (result.transform.name != "Vinyl")
+            {
+                hideVinylPrompt();
             }
 
             if (result.transform.name == "Vinyl Player")
@@ -134,36 +146,45 @@ public class PlayerMovement : MonoBehaviour
                 showVinylPlayerPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    vinylPlayerFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPlayerPrompt();
                 }
             }
 
-            else
+            else if (result.transform.name != "Vinyl Player")
             {
-                hideClose();
-                hideVinylPrompt();
                 hideVinylPlayerPrompt();
+            }
+
+        }
+
+        if (vinylFlag && vinylPlayerFlag)
+        {
+            showVinylAssemble();
+            //if (Input.GetKeyDown(KeyCode.Y))
+            {
+                //hideVinylAssemble();
             }
         }
 
     }
 
-    void hideClose()
-    {
-        foreach (GameObject s in uiOnClose)
-        {
-            s.SetActive(false);
-        }
-    }
+   void hideClose()
+   {
+       foreach (GameObject s in uiOnClose)
+       {
+           s.SetActive(false);
+       }
+   }
 
-    void showClose()
-    {
-        foreach (GameObject s in uiOnClose)
-        {
-            s.SetActive(true);
-        }
-    }
+   void showClose()
+   {
+       foreach (GameObject s in uiOnClose)
+       {
+           s.SetActive(true);
+       }
+   }
 
     void showVinylPrompt()
     {
@@ -192,6 +213,22 @@ public class PlayerMovement : MonoBehaviour
     void hideVinylPlayerPrompt()
     {
         foreach (GameObject s in vinylPlayerPrompt)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    void showVinylAssemble()
+    {
+        foreach (GameObject s in vinylAssemble)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void hideVinylAssemble()
+    {
+        foreach (GameObject s in vinylAssemble)
         {
             s.SetActive(false);
         }
