@@ -7,6 +7,8 @@ TagManager:
   - VolumeSlider
   - Music
   - ShowOnClose
+  - ShowOnVinyl
+  - ShowOnVinylPlayer
   layers:
   - Default
   - TransparentFX
