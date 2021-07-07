@@ -93,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + fpsCam.transform.forward * collectInteractionDistance);
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, collectInteractionDistance))
         {
-            Debug.Log(result.transform.name);
             if (result.transform.name == "Collectible")
             {
                 showClose();
@@ -106,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (result.transform.name == "Vinyl")
             {
+                Debug.Log(result.transform.name);
                 showVinylPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
