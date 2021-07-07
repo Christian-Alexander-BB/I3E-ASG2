@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public float interactionDistance = 10f;
-    public float collectInteractionDistance = 1.5f;
+    public float collectInteractionDistance = 2f;
 
     Vector3 velocity;
     bool isGrounded;
@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+
+    //Christian's variables. I added stuff. 
+    public AudioSource shoot;
+    public int ammo = 30;
 
     void Start()
     {
@@ -67,6 +71,17 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
+            shoot.Play();
+
+            if (ammo == 0)
+            {
+                Debug.Log("No ammo");
+            }
+
+            else
+            {
+                ammo -= 1;
+            }
         }
 
         Collect();
