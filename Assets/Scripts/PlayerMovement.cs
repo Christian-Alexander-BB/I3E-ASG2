@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject[] uiOnClose;
+    public GameObject[] vinylPrompt;
+    public GameObject[] vinylPlayerPrompt;
 
     public CharacterController controller;
 
@@ -16,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public float interactionDistance = 10f;
-    public float collectInteractionDistance = 0.5f;
+    public float collectInteractionDistance = 1.5f;
 
     Vector3 velocity;
     bool isGrounded;
@@ -28,7 +30,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         uiOnClose = GameObject.FindGameObjectsWithTag("ShowOnClose");
+        vinylPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinyl");
+        vinylPlayerPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinylPlayer");
         hideClose();
+        hideVinylPrompt();
+        hideVinylPlayerPrompt();
         
     }
 
@@ -87,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + fpsCam.transform.forward * collectInteractionDistance);
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, collectInteractionDistance))
         {
+            Debug.Log(result.transform.name);
             if (result.transform.name == "Collectible")
             {
                 showClose();
@@ -97,9 +104,31 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
+            if (result.transform.name == "Vinyl")
+            {
+                showVinylPrompt();
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    result.transform.gameObject.SetActive(false);
+                    hideVinylPrompt();
+                }
+            }
+
+            if (result.transform.name == "Vinyl Player")
+            {
+                showVinylPlayerPrompt();
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    result.transform.gameObject.SetActive(false);
+                    hideVinylPlayerPrompt();
+                }
+            }
+
             else
             {
                 hideClose();
+                hideVinylPrompt();
+                hideVinylPlayerPrompt();
             }
         }
 
@@ -118,6 +147,38 @@ public class PlayerMovement : MonoBehaviour
         foreach (GameObject s in uiOnClose)
         {
             s.SetActive(true);
+        }
+    }
+
+    void showVinylPrompt()
+    {
+        foreach (GameObject s in vinylPrompt)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void hideVinylPrompt()
+    {
+        foreach (GameObject s in vinylPrompt)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    void showVinylPlayerPrompt()
+    {
+        foreach (GameObject s in vinylPlayerPrompt)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void hideVinylPlayerPrompt()
+    {
+        foreach (GameObject s in vinylPlayerPrompt)
+        {
+            s.SetActive(false);
         }
     }
 
