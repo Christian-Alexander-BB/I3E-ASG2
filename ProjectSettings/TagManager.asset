@@ -10,6 +10,7 @@ TagManager:
   - ShowOnVinyl
   - ShowOnVinylPlayer
   - ShowAssemblePrompt
+  - Zombie
   layers:
   - Default
   - TransparentFX

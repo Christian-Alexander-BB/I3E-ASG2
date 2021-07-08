@@ -34,7 +34,9 @@ public class PlayerMovement : MonoBehaviour
 
     //Christian's variables. I added stuff. 
     public AudioSource shoot;
+    public AudioSource vinylSong;
     public int ammo = 30;
+    bool allowShowVinylAssemble = true;
 
     void Start()
     {
@@ -161,10 +163,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (vinylFlag && vinylPlayerFlag)
         {
-            showVinylAssemble();
-            //if (Input.GetKeyDown(KeyCode.Y))
+            if (allowShowVinylAssemble)
             {
-                //hideVinylAssemble();
+                showVinylAssemble();
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                allowShowVinylAssemble = false;
+                vinylSong.Play();
+                hideVinylAssemble();
             }
         }
 
@@ -233,5 +240,4 @@ public class PlayerMovement : MonoBehaviour
             s.SetActive(false);
         }
     }
-
 }
