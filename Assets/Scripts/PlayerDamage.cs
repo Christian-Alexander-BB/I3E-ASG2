@@ -9,25 +9,35 @@ public class PlayerDamage : MonoBehaviour
     public GameObject player;
     public Text healthShownInUIText;
     public int playerHealth = 100;
+    float timePassed;
+
     // Start is called before the first frame update
     void Start()
     {
-        healthShownInUIText.text = playerHealth.ToString();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        healthShownInUIText.text = playerHealth.ToString();
+        timePassed += Time.deltaTime;
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(hit.gameObject.tag == "Zombie")
+
+        if(collision.gameObject.tag == "Zombie")
         {
-            Debug.Log("hit");
-            playerHealth -= 10;
-            healthShownInUIText.text = playerHealth.ToString();
+                playerHealth -= 10;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.gameObject.tag == "Zombie" && timePassed > 0.1)
+        {
+            
         }
     }
 }
