@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public GameObject[] uiOnClose;
     public GameObject[] vinylPrompt;
+    public GameObject[] findVinyl;
     public GameObject[] vinylPlayerPrompt;
     public GameObject[] vinylAssemble;
 
@@ -44,10 +45,12 @@ public class PlayerMovement : MonoBehaviour
         vinylPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinyl");
         vinylPlayerPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinylPlayer");
         vinylAssemble = GameObject.FindGameObjectsWithTag("ShowAssemblePrompt");
+        findVinyl = GameObject.FindGameObjectsWithTag("ShowFindVinyl");
         hideClose();
         hideVinylPrompt();
         hideVinylPlayerPrompt();
         hideVinylAssemble();
+        showFindVinyl();
         
     }
 
@@ -129,28 +132,33 @@ public class PlayerMovement : MonoBehaviour
 
             if (result.transform.name == "Vinyl")
             {
+                hideFindVinyl();
                 showVinylPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     vinylFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPrompt();
+                    showFindVinyl();
                 }
             }
 
             else if (result.transform.name != "Vinyl")
             {
                 hideVinylPrompt();
+                showFindVinyl();
             }
 
             if (result.transform.name == "Vinyl Player")
             {
+                hideFindVinyl();
                 showVinylPlayerPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     vinylPlayerFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPlayerPrompt();
+                    showFindVinyl();
                 }
             }
 
@@ -165,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (allowShowVinylAssemble)
             {
+                hideFindVinyl();
                 showVinylAssemble();
             }
             if (Input.GetKeyDown(KeyCode.Y))
@@ -240,4 +249,21 @@ public class PlayerMovement : MonoBehaviour
             s.SetActive(false);
         }
     }
+
+    void showFindVinyl()
+    {
+        foreach (GameObject s in findVinyl)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void hideFindVinyl()
+    {
+        foreach (GameObject s in findVinyl)
+        {
+            s.SetActive(false);
+        }
+    }
+
 }
