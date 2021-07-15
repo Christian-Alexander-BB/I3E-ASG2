@@ -29,11 +29,11 @@ public class PlayerDamage : MonoBehaviour
         if (playerHealth <= 0)
         {
             healthShownInUIText.text = "0";
-            player.GetComponent<PlayerMovement>().hideWhenDie();
             player.GetComponent<PlayerMovement>().showWhenDie();
-            Time.timeScale = 0;
+            player.GetComponent<PlayerMovement>().hideWhenDie();
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            Time.timeScale = 0;
         }
     }
 
