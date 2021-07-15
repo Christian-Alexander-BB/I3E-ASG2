@@ -20,9 +20,6 @@ public class PlayerDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
-        healthShownInUIText.text = playerHealth.ToString();
-=======
         if (playerHealth > 0)
         {
             healthShownInUIText.text = playerHealth.ToString();
@@ -38,7 +35,6 @@ public class PlayerDamage : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
->>>>>>> fa460ad1d1ad75a4de48f939311a53f53e0d71ad
     }
 
     private void OnCollisionEnter(Collision collision)
