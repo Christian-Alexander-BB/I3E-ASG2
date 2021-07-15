@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject[] uiOnClose;
     public GameObject[] vinylPrompt;
     public GameObject[] findVinyl;
     public GameObject[] vinylPlayerPrompt;
@@ -45,14 +44,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        uiOnClose = GameObject.FindGameObjectsWithTag("ShowOnClose");
         vinylPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinyl");
         vinylPlayerPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinylPlayer");
         vinylAssemble = GameObject.FindGameObjectsWithTag("ShowAssemblePrompt");
         findVinyl = GameObject.FindGameObjectsWithTag("ShowFindVinyl");
         dieShowObjects = GameObject.FindGameObjectsWithTag("ShowWhenDie");
         dieHideObjects = GameObject.FindGameObjectsWithTag("HideWhenDie");
-        hideClose();
         hideVinylPrompt();
         hideVinylPlayerPrompt();
         hideVinylAssemble();
@@ -131,16 +128,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + fpsCam.transform.forward * collectInteractionDistance);
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, collectInteractionDistance))
         {
-            if (result.transform.name == "Collectible")
-            {
-                showClose();
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    result.transform.gameObject.SetActive(false);
-                    hideClose();
-                }
-            }
-
             if (result.transform.name == "Vinyl")
             {
                 hideFindVinyl();
@@ -196,22 +183,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
-   void hideClose()
-   {
-       foreach (GameObject s in uiOnClose)
-       {
-           s.SetActive(false);
-       }
-   }
-
-   void showClose()
-   {
-       foreach (GameObject s in uiOnClose)
-       {
-           s.SetActive(true);
-       }
-   }
 
     void showVinylPrompt()
     {
