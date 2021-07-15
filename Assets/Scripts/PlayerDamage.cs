@@ -26,6 +26,7 @@ public class PlayerDamage : MonoBehaviour
 
         if (playerHealth <= 0)
         {
+            other.hideWhenDie();
             other.showWhenDie();
         }
     }

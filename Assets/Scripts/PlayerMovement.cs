@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         hideVinylPlayerPrompt();
         hideVinylAssemble();
         showFindVinyl();
+        showWhenDie();
+        hideBeforeDie();
         
     }
 
@@ -276,10 +278,21 @@ public class PlayerMovement : MonoBehaviour
         {
             s.SetActive(true);
         }
+    }
 
-        foreach (GameObject y in dieHideObjects)
+    void hideBeforeDie()
+    {
+        foreach (GameObject s in dieShowObjects)
         {
-            y.SetActive(false);
+            s.SetActive(false);
+        }
+    }
+
+    public void hideWhenDie()
+    {
+        foreach (GameObject s in dieHideObjects)
+        {
+            s.SetActive(false);
         }
     }
 
