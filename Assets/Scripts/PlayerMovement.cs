@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] vinylAssemble;
     public GameObject[] dieShowObjects;
     public GameObject[] dieHideObjects;
+    public GameObject[] ammoObjects;
+    public GameObject[] ammoPrompt;
 
     public CharacterController controller;
 
@@ -50,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
         findVinyl = GameObject.FindGameObjectsWithTag("ShowFindVinyl");
         dieShowObjects = GameObject.FindGameObjectsWithTag("ShowWhenDie");
         dieHideObjects = GameObject.FindGameObjectsWithTag("HideWhenDie");
+        ammoObjects = GameObject.FindGameObjectsWithTag("AmmoBox");
+        ammoPrompt = GameObject.FindGameObjectsWithTag("ShowAmmoPrompt");
         hideVinylPrompt();
         hideVinylPlayerPrompt();
         hideVinylAssemble();
@@ -144,7 +148,12 @@ public class PlayerMovement : MonoBehaviour
             else if (result.transform.name != "Vinyl")
             {
                 hideVinylPrompt();
-                showFindVinyl();
+                hideVinylPlayerPrompt();
+                hideAmmoPrompt();
+                if (vinylFlag == false && vinylPlayerFlag == false)
+                {
+                    showFindVinyl();
+                }
             }
 
             if (result.transform.name == "Vinyl Player")
@@ -160,11 +169,18 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            else if (result.transform.name != "Vinyl Player")
+            if (result.transform.name == "ammo_box_w_bullets")
             {
-                hideVinylPlayerPrompt();
+                hideFindVinyl();
+                showAmmoPrompt();
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    ammoSystem.GetComponent<AmmoSystem>().ammo += 10;
+                    hasAmmo = true;
+                    hideAmmoBox();
+                    hideAmmoPrompt();
+                }
             }
-
         }
 
         if (vinylFlag && vinylPlayerFlag)
@@ -267,6 +283,30 @@ public class PlayerMovement : MonoBehaviour
     public void hideWhenDie()
     {
         foreach (GameObject s in dieHideObjects)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    void showAmmoPrompt()
+    {
+        foreach (GameObject s in ammoPrompt)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void hideAmmoPrompt()
+    {
+        foreach (GameObject s in ammoPrompt)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    void hideAmmoBox()
+    {
+        foreach (GameObject s in ammoObjects)
         {
             s.SetActive(false);
         }
