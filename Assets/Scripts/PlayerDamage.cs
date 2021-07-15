@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerDamage : MonoBehaviour
 {
-    public PlayerMovement other;
     public GameObject player;
     public Text healthShownInUIText;
     public int playerHealth = 100;
@@ -21,8 +20,11 @@ public class PlayerDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthShownInUIText.text = playerHealth.ToString();
-        timePassed += Time.deltaTime;
+        if (playerHealth > 0)
+        {
+            healthShownInUIText.text = playerHealth.ToString();
+            timePassed += Time.deltaTime;
+        }
         
         if (playerHealth <= 0)
         {
