@@ -132,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 hideFindVinyl();
                 showVinylPrompt();
-
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     vinylFlag = true;
@@ -142,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            else if (result.transform.name != "Vinyl" && vinylFlag == false)
+            else if (result.transform.name != "Vinyl")
             {
                 hideVinylPrompt();
                 showFindVinyl();
@@ -152,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 hideFindVinyl();
                 showVinylPlayerPrompt();
-
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     vinylPlayerFlag = true;
@@ -162,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            else if (result.transform.name != "Vinyl Player" && vinylPlayerFlag == false)
+            else if (result.transform.name != "Vinyl Player")
             {
                 hideVinylPlayerPrompt();
             }
@@ -181,7 +179,6 @@ public class PlayerMovement : MonoBehaviour
                 allowShowVinylAssemble = false;
                 vinylSong.Play();
                 hideVinylAssemble();
-                hideFindVinyl();
             }
         }
 
