@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] findVinyl;
     public GameObject[] vinylPlayerPrompt;
     public GameObject[] vinylAssemble;
+    public GameObject[] dieShowObjects;
+    public GameObject[] dieHideObjects;
 
     public CharacterController controller;
 
@@ -48,11 +50,15 @@ public class PlayerMovement : MonoBehaviour
         vinylPlayerPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinylPlayer");
         vinylAssemble = GameObject.FindGameObjectsWithTag("ShowAssemblePrompt");
         findVinyl = GameObject.FindGameObjectsWithTag("ShowFindVinyl");
+        dieShowObjects = GameObject.FindGameObjectsWithTag("ShowWhenDie");
+        dieHideObjects = GameObject.FindGameObjectsWithTag("HideWhenDie");
         hideClose();
         hideVinylPrompt();
         hideVinylPlayerPrompt();
         hideVinylAssemble();
         showFindVinyl();
+        showWhenDie();
+        hideBeforeDie();
         
     }
 
@@ -139,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 hideFindVinyl();
                 showVinylPrompt();
+
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     vinylFlag = true;
@@ -148,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            else if (result.transform.name != "Vinyl")
+            else if (result.transform.name != "Vinyl" && vinylFlag == false)
             {
                 hideVinylPrompt();
                 showFindVinyl();
@@ -158,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 hideFindVinyl();
                 showVinylPlayerPrompt();
+
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     vinylPlayerFlag = true;
@@ -167,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            else if (result.transform.name != "Vinyl Player")
+            else if (result.transform.name != "Vinyl Player" && vinylPlayerFlag == false)
             {
                 hideVinylPlayerPrompt();
             }
@@ -186,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
                 allowShowVinylAssemble = false;
                 vinylSong.Play();
                 hideVinylAssemble();
+                hideFindVinyl();
             }
         }
 
@@ -266,6 +275,30 @@ public class PlayerMovement : MonoBehaviour
     void hideFindVinyl()
     {
         foreach (GameObject s in findVinyl)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    public void showWhenDie()
+    {
+        foreach (GameObject s in dieShowObjects)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void hideBeforeDie()
+    {
+        foreach (GameObject s in dieShowObjects)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    public void hideWhenDie()
+    {
+        foreach (GameObject s in dieHideObjects)
         {
             s.SetActive(false);
         }
