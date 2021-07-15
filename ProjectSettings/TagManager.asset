@@ -12,6 +12,7 @@ TagManager:
   - ShowAssemblePrompt
   - Zombie
   - ShowFindVinyl
+  - AmmoBox
   layers:
   - Default
   - TransparentFX

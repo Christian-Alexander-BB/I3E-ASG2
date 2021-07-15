@@ -36,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
     //Christian's variables. I added stuff. 
     public AudioSource shoot;
     public AudioSource vinylSong;
-    public int ammo = 30;
+    //public int ammo = 30;
     bool allowShowVinylAssemble = true;
+    public bool hasAmmo = true;
+    public GameObject ammoSystem;
 
     void Start()
     {
@@ -80,20 +82,20 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && hasAmmo)
         {
             Shoot();
-            shoot.Play();
+            ammoSystem.GetComponent<AmmoSystem>().ammo -= 1;
 
-            if (ammo == 0)
-            {
-                Debug.Log("No ammo");
-            }
-
-            else
-            {
-                ammo -= 1;
-            }
+           //if (ammo == 0)
+           //{
+           //    Debug.Log("No ammo");
+           //}
+           //
+           //else
+           //{
+           //    ammo -= 1;
+           //}
         }
 
         Collect();
@@ -102,13 +104,16 @@ public class PlayerMovement : MonoBehaviour
     void Shoot()
     {
         RaycastHit result;
+        shoot.Play();
+
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, interactionDistance))
         {
-            Debug.Log(result.transform.name);
+            Debug.Log("fudgecakes" + result.transform.name);
 
             Target target = result.transform.GetComponent<Target>();
             if (target != null)
             {
+                Debug.Log("Damage Damage Damage!");
                 target.TakeDamage(damage);
             }
         }

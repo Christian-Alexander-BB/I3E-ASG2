@@ -21,7 +21,6 @@ public class PlayerDamage : MonoBehaviour
     void Update()
     {
         healthShownInUIText.text = playerHealth.ToString();
-        timePassed += Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)
