@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerDamage : MonoBehaviour
 {
+    public PlayerMovement other;
     public GameObject player;
     public Text healthShownInUIText;
     public int playerHealth = 100;
@@ -20,20 +21,13 @@ public class PlayerDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerHealth > 0)
-        {
-            healthShownInUIText.text = playerHealth.ToString();
-            timePassed += Time.deltaTime;
-        }
-
+        healthShownInUIText.text = playerHealth.ToString();
+        timePassed += Time.deltaTime;
+        
         if (playerHealth <= 0)
         {
-            healthShownInUIText.text = "0";
-            player.GetComponent<PlayerMovement>().hideWhenDie();
-            player.GetComponent<PlayerMovement>().showWhenDie();
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            other.hideWhenDie();
+            other.showWhenDie();
         }
     }
 
