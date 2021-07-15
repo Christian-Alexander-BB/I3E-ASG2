@@ -12,6 +12,8 @@ TagManager:
   - ShowAssemblePrompt
   - Zombie
   - ShowFindVinyl
+  - ShowWhenDie
+  - HideWhenDie
   layers:
   - Default
   - TransparentFX

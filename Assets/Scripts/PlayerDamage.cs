@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerDamage : MonoBehaviour
 {
+    public PlayerMovement other;
     public GameObject player;
     public Text healthShownInUIText;
     public int playerHealth = 100;
@@ -22,6 +23,11 @@ public class PlayerDamage : MonoBehaviour
     {
         healthShownInUIText.text = playerHealth.ToString();
         timePassed += Time.deltaTime;
+
+        if (playerHealth <= 0)
+        {
+            other.showWhenDie();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

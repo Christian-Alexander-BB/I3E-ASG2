@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] findVinyl;
     public GameObject[] vinylPlayerPrompt;
     public GameObject[] vinylAssemble;
+    public GameObject[] dieShowObjects;
+    public GameObject[] dieHideObjects;
 
     public CharacterController controller;
 
@@ -46,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
         vinylPlayerPrompt = GameObject.FindGameObjectsWithTag("ShowOnVinylPlayer");
         vinylAssemble = GameObject.FindGameObjectsWithTag("ShowAssemblePrompt");
         findVinyl = GameObject.FindGameObjectsWithTag("ShowFindVinyl");
+        dieShowObjects = GameObject.FindGameObjectsWithTag("ShowWhenDie");
+        dieHideObjects = GameObject.FindGameObjectsWithTag("HideWhenDie");
         hideClose();
         hideVinylPrompt();
         hideVinylPlayerPrompt();
@@ -263,6 +267,19 @@ public class PlayerMovement : MonoBehaviour
         foreach (GameObject s in findVinyl)
         {
             s.SetActive(false);
+        }
+    }
+
+    public void showWhenDie()
+    {
+        foreach (GameObject s in dieShowObjects)
+        {
+            s.SetActive(true);
+        }
+
+        foreach (GameObject y in dieHideObjects)
+        {
+            y.SetActive(false);
         }
     }
 
