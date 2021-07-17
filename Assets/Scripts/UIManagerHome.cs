@@ -15,6 +15,7 @@ public class UIManagerHome : MonoBehaviour
 	public void Reload()
 	{
 		SceneManager.LoadScene(1);
+		Time.timeScale = 1;
 	}
 
 	// load how to play page

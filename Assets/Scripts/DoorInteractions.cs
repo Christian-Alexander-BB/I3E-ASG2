@@ -19,7 +19,7 @@ public class DoorInteractions : MonoBehaviour
 
     public string outsideBuildingPrompt = "Press E To Enter";
     public string insideBuildingPrompt = "Press E To Leave";
-    public string noKeyCardPrompt = "No Keycard";
+    public string noKeyCardPrompt = "No Keycard or Never Completed All Objectives";
 
     //Private variables
     private RaycastHit hitObject;
@@ -28,14 +28,18 @@ public class DoorInteractions : MonoBehaviour
     private bool insideBuilding = true;
     private string prompt;
     private Color invisible = new Color32(0, 0, 0, 0);
-    private int framesPassedSinceETapped = 0;
     private string whichDoor;
+    private bool allowAddScoreForExit = true;
+    private bool allowAddScoreForExitDChamber = true;
+    GameObject[] showOnEnd;
 
     // Start is called before the first frame update
     void Start()
     {
         //opacity = (byte)(blackScreenImage.color.a * 255);
         prompt = insideBuildingPrompt;
+        showOnEnd = GameObject.FindGameObjectsWithTag("ShowOnEnd");
+        HideOnEnd();
     }
 
     // Update is called once per frame
@@ -74,18 +78,27 @@ public class DoorInteractions : MonoBehaviour
 
     IEnumerator ActivateExitOrEnterPrompt()
     {
-        for(int i = 0; i < allText.Length; ++i)
+        for (int i = 0; i < allText.Length; ++i)
         {
             if (allText[i].gameObject.name == "Prompt")
             {
-                allText[i].text = prompt;
-                allText[i].color = defaultColor;
+                if (whichDoor == "DeconChamberDoor" && (!gameObject.GetComponent<PlayerMovement>().keycardFlag || gameObject.GetComponent<PlayerMovement>().progress < 80))
+                {
+                    noKeyCardPrompt = "No Keycard or Never Completed All Objectives";
+                    allText[i].text = noKeyCardPrompt;
+                    allText[i].color = defaultColor;
+                }
+
+                else
+                {
+                    allText[i].text = prompt;
+                    allText[i].color = defaultColor;
+                }
             }
 
             else
             {
                 allText[i].color = invisible;
-
             }
         }
 
@@ -112,38 +125,8 @@ public class DoorInteractions : MonoBehaviour
 
     IEnumerator FadeToBlack()
     {
-        if(whichDoor == "DeconChamberDoor" && !gameObject.GetComponent<PlayerMovement>().keycardFlag)
+        if(whichDoor == "DeconChamberDoor" && (!gameObject.GetComponent<PlayerMovement>().keycardFlag || gameObject.GetComponent<PlayerMovement>().progress < 80))
         {
-            for (int i = 0; i < allText.Length; ++i)
-            {
-                if (allText[i].gameObject.name == "NoKeycardPrompt")
-                {
-                    allText[i].color = defaultColor;
-                    allText[i].text = noKeyCardPrompt;
-                }
-
-                else
-                {
-                    allText[i].color = invisible;
-                }
-            }
-
-            yield return new WaitForSeconds(1f);
-
-            for (int i = 0; i < allText.Length; ++i)
-            {
-                if (allText[i].gameObject.name == "NoKeycardPrompt")
-                {
-                    allText[i].color = invisible;
-                    allText[i].text = "";
-                }
-
-                else
-                {
-                    allText[i].color = defaultColor;
-                }
-            }
-
             yield break;
         }
 
@@ -181,6 +164,12 @@ public class DoorInteractions : MonoBehaviour
     {
         if (insideBuilding)
         {
+            if (allowAddScoreForExit)
+            {
+                gameObject.GetComponent<PlayerMovement>().progress += 20;
+                allowAddScoreForExit = false;
+            }
+
             player.transform.position = new Vector3(1.5f, 1f, 1.5f);
             prompt = outsideBuildingPrompt;
             insideBuilding = false;
@@ -198,6 +187,11 @@ public class DoorInteractions : MonoBehaviour
     {
         if (insideBuilding)
         {
+            if (allowAddScoreForExitDChamber)
+            {
+                gameObject.GetComponent<PlayerMovement>().progress += 20;
+                allowAddScoreForExitDChamber = false;
+            }
             player.transform.position = new Vector3(50.72f, 1f, -5.75f);
             prompt = outsideBuildingPrompt;
             insideBuilding = false;
@@ -210,4 +204,30 @@ public class DoorInteractions : MonoBehaviour
             insideBuilding = true;
         }
     }
+
+    void ShowOnEnd()
+    {
+        foreach(GameObject s in showOnEnd)
+        {
+            s.SetActive(true);
+        }
+    }
+
+    void HideOnEnd()
+    {
+        foreach (GameObject s in showOnEnd)
+        {
+            s.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Endgame") 
+        {
+            ShowOnEnd();
+        }
+    }
+
+
 }
