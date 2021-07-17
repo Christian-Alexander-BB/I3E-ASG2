@@ -14,8 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] ammoPrompt;
     public GameObject[] keycardPrompt;
 
-    
-
     public CharacterController controller;
 
     public Camera fpsCam;
