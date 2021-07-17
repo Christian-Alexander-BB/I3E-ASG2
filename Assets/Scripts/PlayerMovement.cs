@@ -131,12 +131,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, interactionDistance))
         {
-            Debug.Log("fudgecakes" + result.transform.name);
-
             Target target = result.transform.GetComponent<Target>();
             if (target != null)
             {
-                Debug.Log("Damage Damage Damage!");
                 target.TakeDamage(damage);
             }
         }
