@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     public bool hasAmmo = true;
     public bool collectAmmoFlag = false;
     public GameObject ammoSystem;
+    public bool allowMovement = true;
 
     void Start()
     {
@@ -94,21 +95,24 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        controller.Move(move * speed * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.anyKey && allowMovement)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+
+            Vector3 move = transform.right * x + transform.forward * z;
+
+            controller.Move(move * speed * Time.deltaTime);
+
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+
+            velocity.y += gravity * Time.deltaTime;
+
+            controller.Move(velocity * Time.deltaTime);
         }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
 
         if (Input.GetButtonDown("Fire1") && hasAmmo)
         {
