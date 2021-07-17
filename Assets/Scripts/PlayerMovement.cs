@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         hideVinylPrompt();
         hideVinylPlayerPrompt();
         hideVinylAssemble();
+        hideAmmoPrompt();
         showFindVinyl();
         showWhenDie();
         hideBeforeDie();
