@@ -17,6 +17,7 @@ TagManager:
   - AmmoBox
   - ShowAmmoPrompt
   - KeycardPrompt
+  - Door
   layers:
   - Default
   - TransparentFX
