@@ -32,13 +32,4 @@ public class AmmoSystem : MonoBehaviour
 
 
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "AmmoBox")
-        {
-            ammo += 10;
-            parentObj.GetComponent<PlayerMovement>().hasAmmo = true;
-        }   
-    }
 }
