@@ -14,11 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] ammoPrompt;
     public GameObject[] keycardPrompt;
 
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> 7f4637db38ca917b22325ca4a00457352feae0bb
     public CharacterController controller;
 
     public Camera fpsCam;
@@ -372,8 +367,4 @@ public class PlayerMovement : MonoBehaviour
             s.SetActive(false);
         }
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 7f4637db38ca917b22325ca4a00457352feae0bb
 }
