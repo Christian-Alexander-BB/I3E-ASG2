@@ -16,6 +16,7 @@ TagManager:
   - HideWhenDie
   - AmmoBox
   - ShowAmmoPrompt
+  - KeycardPrompt
   layers:
   - Default
   - TransparentFX

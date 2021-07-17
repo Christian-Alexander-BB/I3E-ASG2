@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         hideVinylPlayerPrompt();
         hideVinylAssemble();
         hideAmmoPrompt();
+        hideKeycardPrompt();
         showFindVinyl();
         showWhenDie();
         hideBeforeDie();
@@ -332,7 +333,7 @@ public class PlayerMovement : MonoBehaviour
     {
         foreach (GameObject s in keycardPrompt)
         {
-            s.SetActive(true);
+            s.SetActive(false);
         }
     }
 
