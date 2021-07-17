@@ -18,6 +18,8 @@ TagManager:
   - ShowAmmoPrompt
   - KeycardPrompt
   - Door
+  - ShowOnAccepted
+  - ShowOnRejected
   layers:
   - Default
   - TransparentFX
