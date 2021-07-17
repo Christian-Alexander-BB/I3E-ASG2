@@ -26,7 +26,7 @@ public class DoorInteractions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //opacity = (byte)(blackScreenImage.color.a);
+        //opacity = (byte)(blackScreenImage.color.a * 255);
     }
 
     // Update is called once per frame
@@ -123,7 +123,8 @@ public class DoorInteractions : MonoBehaviour
     {
         while (opacity < 255)
         {
-            opacity += (byte)(fadeAmount);
+            opacity += (byte)(fadeAmount * Time.deltaTime * 255);
+            Debug.Log(opacity);
             blackScreenImage.color = new Color32((byte)(blackScreenImage.color.r * 255),
                                                  (byte)(blackScreenImage.color.g * 255),
                                                  (byte)(blackScreenImage.color.b * 255),
