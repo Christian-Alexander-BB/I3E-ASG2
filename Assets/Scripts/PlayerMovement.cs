@@ -14,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] ammoPrompt;
     public GameObject[] keycardPrompt;
 
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 7f4637db38ca917b22325ca4a00457352feae0bb
     public CharacterController controller;
 
     public Camera fpsCam;
@@ -50,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     public bool collectAmmoFlag = false;
     public GameObject ammoSystem;
     public bool allowMovement = true;
+    public bool allowIncrease = true;
 
     void Start()
     {
@@ -76,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //deathProgressText.text = "Progress\n" + progress + " Percent";
+        deathProgressText.text = "Progress\n" + progress + " Percent";
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -232,6 +238,13 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 Time.timeScale = 1;
+
+                if (allowIncrease)
+                {
+                    progress += 20;
+                    progressText.text = "Progress\n" + progress + " Percent";
+                    allowIncrease = false;
+                }
                 allowShowVinylAssemble = false;
                 vinylSong.Play();
                 hideVinylAssemble();
@@ -359,5 +372,8 @@ public class PlayerMovement : MonoBehaviour
             s.SetActive(false);
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7f4637db38ca917b22325ca4a00457352feae0bb
 }
