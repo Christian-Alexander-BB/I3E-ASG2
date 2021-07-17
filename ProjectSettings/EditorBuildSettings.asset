@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: e546b80064e882f429dc16124eba390d
   - enabled: 1
-    path: Assets/Scenes/Tuhveezt Main Scene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Main Scene.unity
+    guid: e215fa7bb85719347941133a97745983
   - enabled: 1
     path: Assets/Scenes/How To Play.unity
     guid: 410ac3d4a5c41ad4b85703307605e4ab
@@ -19,5 +19,8 @@ EditorBuildSettings:
     guid: 643e687576381cf4185140cee9b47ca9
   - enabled: 1
     path: Assets/Scenes/Credits.unity
-    guid: fef5f84b0386119499f050c94105998e
+    guid: 5a4c203ca210e6848bc3a7c3e74c6dcb
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
