@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
 
     public Camera fpsCam;
     public LayerMask collectiblesMask;
+    public int progress = 0;
+    public Text progressText;
+    public Text deathProgressText;
 
     public float damage = 10f;
 
@@ -71,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        deathProgressText.text = "Progress\n" + progress + " Percent";
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -143,6 +148,8 @@ public class PlayerMovement : MonoBehaviour
                 showVinylPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    progress += 15;
+                    progressText.text = "Progress\n" + progress + " Percent";
                     vinylFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPrompt();
@@ -156,6 +163,8 @@ public class PlayerMovement : MonoBehaviour
                 showVinylPlayerPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    progress += 15;
+                    progressText.text = "Progress\n" + progress + " Percent";
                     vinylPlayerFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPlayerPrompt();
@@ -169,6 +178,8 @@ public class PlayerMovement : MonoBehaviour
                 showAmmoPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    progress += 15;
+                    progressText.text = "Progress\n" + progress + " Percent";
                     ammoSystem.GetComponent<AmmoSystem>().ammo += 10;
                     hasAmmo = true;
                     collectAmmoFlag = true;
@@ -183,6 +194,8 @@ public class PlayerMovement : MonoBehaviour
                 showKeycardPrompt();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    progress += 15;
+                    progressText.text = "Progress\n" + progress + " Percent";
                     keycardFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideKeycardPrompt();
