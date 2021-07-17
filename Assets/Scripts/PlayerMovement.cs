@@ -17,10 +17,11 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
 
     public Camera fpsCam;
+    public LayerMask collectiblesMask;
 
     public float damage = 10f;
 
-    public float speed = 12f;
+    public float speed = 6f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public float interactionDistance = 10f;
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     //public int ammo = 30;
     bool allowShowVinylAssemble = true;
     public bool hasAmmo = true;
+    public bool collectAmmoFlag = false;
     public GameObject ammoSystem;
 
     void Start()
@@ -133,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit result;
         Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + fpsCam.transform.forward * collectInteractionDistance);
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, collectInteractionDistance))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out result, collectInteractionDistance, collectiblesMask))
         {
             if (result.transform.name == "Vinyl")
             {
@@ -144,18 +146,6 @@ public class PlayerMovement : MonoBehaviour
                     vinylFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideVinylPrompt();
-                    showFindVinyl();
-                }
-            }
-
-            else if (result.transform.name != "Vinyl")
-            {
-                hideVinylPrompt();
-                hideVinylPlayerPrompt();
-                hideAmmoPrompt();
-                hideKeycardPrompt();
-                if (vinylFlag == false && vinylPlayerFlag == false)
-                {
                     showFindVinyl();
                 }
             }
@@ -181,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     ammoSystem.GetComponent<AmmoSystem>().ammo += 10;
                     hasAmmo = true;
+                    collectAmmoFlag = true;
                     result.transform.gameObject.SetActive(false);
                     hideAmmoPrompt();
                 }
@@ -200,15 +191,29 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        else
+        {
+            hideVinylPrompt();
+            hideVinylPlayerPrompt();
+            hideAmmoPrompt();
+            hideKeycardPrompt();
+            if (vinylFlag == false && vinylPlayerFlag == false && collectAmmoFlag == false && keycardFlag == false)
+            {
+                showFindVinyl();
+            }
+        }
+
         if (vinylFlag && vinylPlayerFlag)
         {
             if (allowShowVinylAssemble)
             {
                 hideFindVinyl();
                 showVinylAssemble();
+                Time.timeScale = 0;
             }
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                Time.timeScale = 1;
                 allowShowVinylAssemble = false;
                 vinylSong.Play();
                 hideVinylAssemble();
