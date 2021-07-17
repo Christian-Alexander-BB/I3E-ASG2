@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        deathProgressText.text = "Progress\n" + progress + " Percent";
+        //deathProgressText.text = "Progress\n" + progress + " Percent";
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
