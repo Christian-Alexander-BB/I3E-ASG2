@@ -8,7 +8,6 @@ public class DoorInteractions : MonoBehaviour
     public Camera playerCam;
     public float maxRayDistanceToVShopDoor = 2f;
     public GameObject blackScreenImage;
-    public string exitVinylShopPrompt = "Press F to leave";
     public Text[] allText;
     
     [SerializeField]
@@ -18,17 +17,12 @@ public class DoorInteractions : MonoBehaviour
     private int framesPassedSinceRayHit = 0;
 
     [SerializeField]
+    private int framesPassedWithoutRayHit = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach(Text text in allText)
-        {
-            if(text.gameObject.name == "ExitVinylShopPrompt")
-            {
-                text.text = exitVinylShopPrompt;
-            }
-        }
+        
     }
 
     // Update is called once per frame
@@ -39,6 +33,7 @@ public class DoorInteractions : MonoBehaviour
         {
             Debug.Log("1 thing");
             framesPassedSinceRayHit += 1;
+            framesPassedWithoutRayHit = 0;
 
             if (framesPassedSinceRayHit == 1)
             {
@@ -56,6 +51,13 @@ public class DoorInteractions : MonoBehaviour
         else
         {
             framesPassedSinceRayHit = 0;
+            framesPassedWithoutRayHit += 1;
+
+            if (framesPassedWithoutRayHit == 1)
+            {
+                StartCoroutine("DeactivateExitVinylShopPrompt");
+            }
+
         }
     }
 
@@ -82,7 +84,15 @@ public class DoorInteractions : MonoBehaviour
     {
         for(int i = 0; i < allText.Length; ++i)
         {
+            if (allText[i].gameObject.name == "ExitVinylShopPrompt")
+            {
+                allText[i].color = new Color32(0, 0, 0, 0);
+            }
 
+            else
+            {
+                allText[i].color = new Color32(50, 50, 50, 255);
+            }
         }
 
         yield return null;
