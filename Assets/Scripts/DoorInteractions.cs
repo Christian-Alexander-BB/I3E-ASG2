@@ -226,6 +226,9 @@ public class DoorInteractions : MonoBehaviour
         if (other.gameObject.name == "Endgame") 
         {
             ShowOnEnd();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
         }
     }
 
