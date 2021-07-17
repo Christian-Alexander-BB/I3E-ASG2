@@ -24,10 +24,10 @@ public class DoorInteractions : MonoBehaviour
     void Update()
     {
         if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hitObject, maxRayDistanceToVShopDoor) && 
-            hitObject.transform.gameObject.name == "vinylShopDoor")
+            hitObject.transform.gameObject.name == "VinylShopDoor")
         {
             Debug.Log("1 thing");
-            //StartCoroutine("ActivateExitVinylShopPrompt");
+            StartCoroutine("ActivateExitVinylShopPrompt");
             Debug.Log("2 things");
             
             if (Input.GetKeyDown(KeyCode.F))
@@ -54,6 +54,6 @@ public class DoorInteractions : MonoBehaviour
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(1f);
     }
 }
