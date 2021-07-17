@@ -14,11 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] ammoPrompt;
     public GameObject[] keycardPrompt;
 
-    //door thing @christian
-    public GameObject[] acceptedPrompt;
-    public GameObject[] rejectedPrompt;
-    //
-
     public CharacterController controller;
 
     public Camera fpsCam;
@@ -66,11 +61,6 @@ public class PlayerMovement : MonoBehaviour
         dieHideObjects = GameObject.FindGameObjectsWithTag("HideWhenDie");
         ammoPrompt = GameObject.FindGameObjectsWithTag("ShowAmmoPrompt");
         keycardPrompt = GameObject.FindGameObjectsWithTag("KeycardPrompt");
-
-        //door accept thing @christian
-        acceptedPrompt = GameObject.FindGameObjectsWithTag("ShowOnAccepted");
-        rejectedPrompt = GameObject.FindGameObjectsWithTag("ShowOnRejected");
-        //
 
         hideVinylPrompt();
         hideVinylPlayerPrompt();
@@ -250,21 +240,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void OpenDoor()
-    {
-        //door thing @christian
-        if (keycardFlag)
-        {
-            // open door stuff thing @christian
-            showAcceptedPrompt();
-        }
-
-        else if (keycardFlag == false)
-        {
-            showRejectedPrompt();
-        }
-    }
-
     void showVinylPrompt()
     {
         foreach (GameObject s in vinylPrompt)
@@ -384,24 +359,5 @@ public class PlayerMovement : MonoBehaviour
             s.SetActive(false);
         }
     }
-
-
-    //door thing @christian
-    public void showAcceptedPrompt()
-    {
-        foreach (GameObject s in acceptedPrompt)
-        {
-            s.SetActive(true);
-        }
-    }
-
-    public void showRejectedPrompt()
-    {
-        foreach (GameObject s in rejectedPrompt)
-        {
-            s.SetActive(true);
-        }
-    }
-    //
 
 }

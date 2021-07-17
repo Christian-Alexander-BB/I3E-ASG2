@@ -28,7 +28,6 @@ public class DoorInteractions : MonoBehaviour
     private bool insideBuilding = true;
     private string prompt;
     private Color invisible = new Color32(0, 0, 0, 0);
-    private int framesPassedSinceETapped = 0;
     private string whichDoor;
 
     // Start is called before the first frame update
