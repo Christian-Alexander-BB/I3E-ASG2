@@ -11,8 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] vinylAssemble;
     public GameObject[] dieShowObjects;
     public GameObject[] dieHideObjects;
-    public GameObject[] ammoObjects;
     public GameObject[] ammoPrompt;
+    public GameObject[] keycardPrompt;
 
     public CharacterController controller;
 
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool vinylFlag = false;
     public bool vinylPlayerFlag = false;
+    public bool keycardFlag = false;
 
     Vector3 velocity;
     bool isGrounded;
@@ -52,8 +53,8 @@ public class PlayerMovement : MonoBehaviour
         findVinyl = GameObject.FindGameObjectsWithTag("ShowFindVinyl");
         dieShowObjects = GameObject.FindGameObjectsWithTag("ShowWhenDie");
         dieHideObjects = GameObject.FindGameObjectsWithTag("HideWhenDie");
-        ammoObjects = GameObject.FindGameObjectsWithTag("AmmoBox");
         ammoPrompt = GameObject.FindGameObjectsWithTag("ShowAmmoPrompt");
+        keycardPrompt = GameObject.FindGameObjectsWithTag("KeycardPrompt");
         hideVinylPrompt();
         hideVinylPlayerPrompt();
         hideVinylAssemble();
@@ -151,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
                 hideVinylPrompt();
                 hideVinylPlayerPrompt();
                 hideAmmoPrompt();
+                hideKeycardPrompt();
                 if (vinylFlag == false && vinylPlayerFlag == false)
                 {
                     showFindVinyl();
@@ -178,8 +180,21 @@ public class PlayerMovement : MonoBehaviour
                 {
                     ammoSystem.GetComponent<AmmoSystem>().ammo += 10;
                     hasAmmo = true;
-                    hideAmmoBox();
+                    result.transform.gameObject.SetActive(false);
                     hideAmmoPrompt();
+                }
+            }
+
+            if (result.transform.name == "keycard")
+            {
+                hideFindVinyl();
+                showKeycardPrompt();
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    keycardFlag = true;
+                    result.transform.gameObject.SetActive(false);
+                    hideKeycardPrompt();
+                    showFindVinyl();
                 }
             }
         }
@@ -305,11 +320,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void hideAmmoBox()
+    void showKeycardPrompt()
     {
-        foreach (GameObject s in ammoObjects)
+        foreach (GameObject s in keycardPrompt)
         {
-            s.SetActive(false);
+            s.SetActive(true);
+        }
+    }
+
+    void hideKeycardPrompt()
+    {
+        foreach (GameObject s in keycardPrompt)
+        {
+            s.SetActive(true);
         }
     }
 
